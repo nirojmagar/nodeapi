@@ -58,17 +58,15 @@ module.exports = {
 	},
 
 	secret: async (req, res, next) => {
-		// Protected area need to login 
+		// Protected area ogin required
 		res.json({ secret: "Resource" });
 	},
 
 	profile: async (req, res, next) => {
-		// Protected area need to login 
 		res.json({ secret: "profile" });
 	},
 
 	update: async (req, res, next) => {
-		 // Protected area need to login 
 		res.json({ secret: "updated" });
 	},
 }
