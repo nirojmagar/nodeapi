@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost/APIAuthentication');
 app.use(morgan('dev'));
 // app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 
 
