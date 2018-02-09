@@ -21,7 +21,7 @@ module.exports = {
 		// Check if there is a user with the same email
 		// const foundUser = User({email: email});
 		// ES6 : if key and value reference have same name then we can do 
-		const foundUser = await User.findOne({ email });
+		const foundUser = await User.findOne({ "local.email": email });
 		if( foundUser ){
 			return res.status(403).json({error: 'Email already in use'});// 403 : forbidden
 		}
@@ -32,7 +32,13 @@ module.exports = {
 			// password: password
 		// });
 		// ES6 : if key and value reference have same name then we can do 
-		const newUser = new User({ email, password });
+		const newUser = new User({ 
+			method: 'local',
+			local: {
+				email: email, 
+				password: password 
+			}
+		});
 		await newUser.save();
 
 		// respond with token
@@ -53,6 +59,13 @@ module.exports = {
 
 	signIn: async (req, res, next) => {
 		// Generate token
+		const token = signToken(req.user);	
+		res.status(200).json({ token });
+	},
+
+	googleOAuth: async (req, res, next) => {
+		// Generate token
+		console.log('req.users', req.user);
 		const token = signToken(req.user);	
 		res.status(200).json({ token });
 	},

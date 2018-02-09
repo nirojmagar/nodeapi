@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 
 
-// mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 // mongoose.connect('mongodb://localhost/APIAuthentication', { useMongoClient: true });
 // The `useMongoClient` option is no longer necessary in mongoose 5.x, please remove it.
 mongoose.connect('mongodb://localhost/APIAuthentication');

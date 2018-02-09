@@ -6,24 +6,27 @@ const passportConf = require('../passport');
 
 const { validateBody, schemas } = require('../helpers/routeHelpers');
 const UsersController = require('../controllers/users');
+const passportSignIn = passport.authenticate('local', { session: false});
+const passportJWT = passport.authenticate('jwt', { session: false});
+const passportGoogle = passport.authenticate('googleToken', { session: false });
 
 
 router.route('/signUp')
 .post(validateBody(schemas.authSchema), UsersController.signUp);
 
 router.route('/signIn')
-.post(validateBody(schemas.authSchema), passport.authenticate('local',{ session: false}), UsersController.signIn);
+.post(validateBody(schemas.authSchema), passportSignIn, UsersController.signIn);
 
 router.route('/oauth/google')
-.post(passport.authenticate('googleToken', { session: false }));
+.post(passportGoogle, UsersController.googleOAuth);
 
 router.route('/secret')
-.get(passport.authenticate('jwt', { session: false}), UsersController.secret);
+.get(passportJWT, UsersController.secret);
 
 router.route('/profile')
-.get(passport.authenticate('jwt', { session: false}), UsersController.profile);
+.get(passportJWT, UsersController.profile);
 
 router.route('/profile')
-.post(passport.authenticate('jwt', { session: false}), UsersController.update);
+.post(passportJWT, UsersController.update);
 
 module.exports = router;
