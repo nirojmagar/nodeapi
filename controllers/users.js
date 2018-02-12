@@ -70,6 +70,13 @@ module.exports = {
 		res.status(200).json({ token });
 	},
 
+	facebookOAuth: async (req, res, next) => {
+		// Generate token
+		console.log('req.users', req.user);
+		const token = signToken(req.user);	
+		res.status(200).json({ token });
+	},
+
 	secret: async (req, res, next) => {
 		// Protected area ogin required
 		res.json({ secret: "Resource" });
